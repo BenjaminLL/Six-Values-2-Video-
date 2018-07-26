@@ -10,6 +10,7 @@ var scenario = $("#scenario"); // scenario context
 var timer = $("#timer");
 var life = $("#life");
 var start = $("#start");
+var video = $("video");
 
 // declare scenarios
 var scenarios = ["honesty", "trust", "respect", "responsibility", 
@@ -27,6 +28,8 @@ var stop = false;
 var started = false;
 var numLife = 3;
 
+video.hide();
+
 // get random number
 function getRandom(max) {
 	return Math.floor(Math.random() * max);
@@ -34,6 +37,10 @@ function getRandom(max) {
 
 //get random scenarios
 function setScenario() {
+
+	scenario.hide();
+	video.show();
+	video[0].play();
 
 	while (true) {
 		
