@@ -13,12 +13,20 @@ var start = $("#start");
 var video = $("video");
 
 // declare scenarios
-var scenarios = ["honesty", "trust", "respect", "responsibility", 
-					"fairness", "courage"];
+var honestyVideos = ["assets/videos/1a-v3.mp4", "assets/videos/1b-v3.mp4", "assets/videos/2a-v3.mp4", "assets/videos/2b-v3.mp4"];
+var trustVideos = ["assets/videos/4a-v3.mp4", "assets/videos/4b-v3.mp4"];
+var respectVideos = ["assets/videos/5b-v3.mp4", "assets/videos/6a-v3.mp4"];
+var responsibilityVideos = ["assets/videos/7a-v3.mp4", "assets/videos/7b-v3.mp4"];
+var fairnessVideos = ["assets/videos/9a-v3.mp4", "assets/videos/9b-v3.mp4", "assets/videos/10a-v3.mp4", "assets/videos/10b-v3.mp4"];
+var courageVideos = ["assets/videos/11a-v3.mp4", "assets/videos/11b-v3.mp4", "assets/videos/12a-v3.mp4", "assets/videos/12b-v3.mp4"];
+
+var scenarios = [honestyVideos, trustVideos, respectVideos, responsibilityVideos, 
+					fairnessVideos, courageVideos];
 var buttons = [honesty, trust, respect, responsibility, fairness, courage];
 
 // Global Vars
 var scenarioIndex; // current scenario number 
+var currVideo;
 var numVars = 6;
 var time = 0;
 var record = null;
@@ -38,19 +46,20 @@ function getRandom(max) {
 //get random scenarios
 function setScenario() {
 
-	scenario.hide();
-	video.show();
-	video[0].play();
-
 	while (true) {
 		
 		scenarioIndex = getRandom(numVars);
-		if (played.indexOf(scenarioIndex) == -1) {
+		videoIndex = getRandom(scenarios[scenarioIndex].length);
+		currVideo = scenarios[scenarioIndex][videoIndex];
+
+		if (played.indexOf(currVideo) == -1) {
 			break;
 		}
 	}
-	played.push(scenarioIndex);
-	scenario.text(scenarios[scenarioIndex]);
+
+	played.push(currVideo);
+	video[0].src = currVideo;
+	video[0].play();
 	++totalPlay;
 }
 
@@ -118,7 +127,10 @@ function setListeners() {
 				console.log(numLife);
 				if (numLife == 0) {
 					stop = true;
+					video[0].pause();
+					video.hide();
 					scenario.text("Try Again!");
+					scenario.show();
 					start.text("Start");
 				}
 				life.text(numLife);
@@ -131,9 +143,14 @@ function setListeners() {
 		if (started) {
 			start.text("Start");
 			scenario.text("Six Values 2");
+			scenario.show();
+			video[0].pause();
+			video.hide();
 			stop = true;
 		} else {
 			start.text("Stop");
+			scenario.hide();
+			video.show();
 			init();
 		}
 	});
