@@ -11,6 +11,7 @@ var timer = $("#timer");
 var life = $("#life");
 var start = $("#start");
 var video = $("video");
+var icon = $("i");
 
 // declare scenarios
 var honestyVideos = ["assets/videos/1a-v3.mp4", "assets/videos/1b-v3.mp4", "assets/videos/2a-v3.mp4", "assets/videos/2b-v3.mp4"];
@@ -37,6 +38,7 @@ var started = false;
 var numLife = 3;
 
 video.hide();
+icon.hide();
 
 // get random number
 function getRandom(max) {
@@ -47,6 +49,8 @@ function getRandom(max) {
 function setScenario() {
 
 	video[0].pause();
+	icon.hide();
+
 	while (true) {
 		
 		scenarioIndex = getRandom(numVars);
@@ -104,6 +108,16 @@ function init() {
 }
 
 function setListeners() {
+
+	video[0].onended = function() {
+		icon.show();
+	};
+
+	icon.click(function() {
+		video[0].play();
+		icon.hide();
+	});
+
 	for (var i = 0; i < numVars; ++i) {
 
 		buttons[i].click(function() {
@@ -111,13 +125,14 @@ function setListeners() {
 			if (!started) return;		
 
 			var buttonIndex = $(this).index();
-			
+
 			if (buttonIndex == scenarioIndex) {
 
 				if (totalPlay == numVars) {
 					stop = true;
 					video[0].pause();
 					video.hide();
+					icon.hide();
 					scenario.text("You Finished in: " + time + "s");
 					scenario.show();
 					start.text("Start");
@@ -132,6 +147,7 @@ function setListeners() {
 					stop = true;
 					video[0].pause();
 					video.hide();
+					icon.hide();
 					scenario.text("Try Again!");
 					scenario.show();
 					start.text("Start");
@@ -149,6 +165,7 @@ function setListeners() {
 			scenario.show();
 			video[0].pause();
 			video.hide();
+			icon.hide();
 			stop = true;
 		} else {
 			start.text("Stop");

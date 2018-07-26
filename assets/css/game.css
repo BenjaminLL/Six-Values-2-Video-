@@ -29,6 +29,7 @@ body {
 	margin-left: 2.25%;
 	margin-right: 2.25%;
 	width: 95%;
+	position: relative;
 }
 
 video {
@@ -40,6 +41,17 @@ video {
     display: inline-block;
     vertical-align: middle;
     font-family: 'Abril Fatface', cursive;
+}
+
+i {
+	font-size: 50px;
+    position: absolute;
+    top: 75px;
+    bottom: 75px;
+    right: 10px;
+    left: 10px;
+    opacity: 0.9;
+    color: white;
 }
 
 .control {
