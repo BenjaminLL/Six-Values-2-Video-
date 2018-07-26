@@ -46,6 +46,7 @@ function getRandom(max) {
 //get random scenarios
 function setScenario() {
 
+	video[0].pause();
 	while (true) {
 		
 		scenarioIndex = getRandom(numVars);
@@ -56,7 +57,7 @@ function setScenario() {
 			break;
 		}
 	}
-
+	console.log("scenarioIndex: " + scenarioIndex);
 	played.push(currVideo);
 	video[0].src = currVideo;
 	video[0].play();
@@ -110,13 +111,15 @@ function setListeners() {
 			if (!started) return;		
 
 			var buttonIndex = $(this).index();
-			console.log("buttonIndex: " + buttonIndex);
-			console.log("scenarioIndex: " + scenarioIndex);
+			
 			if (buttonIndex == scenarioIndex) {
 
 				if (totalPlay == numVars) {
 					stop = true;
-					scenario.text("You Win!");
+					video[0].pause();
+					video.hide();
+					scenario.text("You Finished in: " + time + "s");
+					scenario.show();
 					start.text("Start");
 				} else {
 					setScenario();
