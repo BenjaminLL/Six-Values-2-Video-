@@ -12,18 +12,36 @@ var life = $("#life");
 var start = $("#start");
 var video = $("video");
 var icon = $("i");
+var scenarioText = $("#scenarioText h6");
+var instruction = $("#instruction");
+var backGround = $("#pop_background");
+var instructionPopup = $("#instruction_popup");
 
 // declare scenarios
-var honestyVideos = ["assets/videos/1a-v3.mp4", "assets/videos/1b-v3.mp4", "assets/videos/2a-v3.mp4", "assets/videos/2b-v3.mp4"];
-var trustVideos = ["assets/videos/4a-v3.mp4", "assets/videos/4b-v3.mp4"];
-var respectVideos = ["assets/videos/5b-v3.mp4", "assets/videos/6a-v3.mp4"];
-var responsibilityVideos = ["assets/videos/7a-v3.mp4", "assets/videos/7b-v3.mp4"];
-var fairnessVideos = ["assets/videos/9a-v3.mp4", "assets/videos/9b-v3.mp4", "assets/videos/10a-v3.mp4", "assets/videos/10b-v3.mp4"];
-var courageVideos = ["assets/videos/11a-v3.mp4", "assets/videos/11b-v3.mp4", "assets/videos/12a-v3.mp4", "assets/videos/12b-v3.mp4"];
+var honestyVideos = ["assets/videos/1b-v3.mp4", "assets/videos/2b-v3.mp4"];
+var trustVideos = ["assets/videos/4b-v3.mp4"];
+var respectVideos = ["assets/videos/5b-v3.mp4"];
+var fairnessVideos = ["assets/videos/7b-v3.mp4"];
+var responsibilityVideos = ["assets/videos/9b-v3.mp4", "assets/videos/10b-v3.mp4"];
+var courageVideos = ["assets/videos/11b-v3.mp4", "assets/videos/12b-v3.mp4"];
 
 var scenarios = [honestyVideos, trustVideos, respectVideos, responsibilityVideos, 
 					fairnessVideos, courageVideos];
 var buttons = [honesty, trust, respect, responsibility, fairness, courage];
+
+
+var honestyText = ["You are asked to work together on a quiz but want to ask the instructor if this is permitted.", 
+					"After being granted an extension for a paper you are struggling with, you contact your instructor to receive help."];
+var trustText = ["You receive an “F” on a paper and think that your friend may have copied your work without you knowing, so you tell your instructor what happened."];
+var respectText = ["You have already completed half the assignment with your friends when you learn it is an individual assignment, so you start the assignment over on your own."];
+var fairnessText = ["A student is writing an exam and has access to the answer key, so you let the instructor know after class that the answers are available online."];
+var responsibilityText = ["After having lied on your resume, you find yourself unable to answer questions about a skill you claimed to have, and decide to let the interviewer know that you have no experience with that content.", 
+					"When your mother asks how classes are going, you decide to go see a counselor to get help due to your academic struggles at university."];
+var courageText = ["While writing an exam where electronics are not allowed, you see students looking at their phones, and decide to notify the exam invigilator.",
+				 "You have recently switched academic programs and have been afraid to tell your family, so you decide to seek help and visit an academic advisor."];
+
+var scenariosText = [honestyText, trustText, respectText, responsibilityText, 
+					fairnessText, courageText];
 
 // Global Vars
 var scenarioIndex; // current scenario number 
@@ -39,6 +57,9 @@ var numLife = 3;
 
 video.hide();
 icon.hide();
+scenarioText.hide();
+backGround.hide();
+instructionPopup.hide();
 
 // get random number
 function getRandom(max) {
@@ -65,6 +86,7 @@ function setScenario() {
 	played.push(currVideo);
 	video[0].src = currVideo;
 	video[0].play();
+	scenarioText.text(scenariosText[scenarioIndex][videoIndex]);
 	++totalPlay;
 }
 
@@ -109,6 +131,16 @@ function init() {
 
 function setListeners() {
 
+	backGround.click(function() {
+		backGround.hide();
+    	instructionPopup.hide();
+	});
+
+	instruction.click(function() {
+		backGround.show();
+    	instructionPopup.show();
+	});
+
 	video[0].onended = function() {
 		icon.show();
 	};
@@ -136,6 +168,9 @@ function setListeners() {
 					scenario.text("You Finished in: " + time + "s");
 					scenario.show();
 					start.text("Start");
+					scenarioText.text("");
+					scenarioText.hide();
+					instruction.show();
 				} else {
 					setScenario();
 				}
@@ -151,6 +186,9 @@ function setListeners() {
 					scenario.text("Try Again!");
 					scenario.show();
 					start.text("Start");
+					scenarioText.text("");
+					scenarioText.hide();
+					instruction.show();
 				}
 				life.text(numLife);
 			}
@@ -162,6 +200,9 @@ function setListeners() {
 		if (started) {
 			start.text("Start");
 			scenario.text("Six Values 2");
+			scenarioText.text("");
+			scenarioText.hide();
+			instruction.show();
 			scenario.show();
 			video[0].pause();
 			video.hide();
@@ -171,6 +212,8 @@ function setListeners() {
 			start.text("Stop");
 			scenario.hide();
 			video.show();
+			instruction.hide();
+			scenarioText.show();
 			init();
 		}
 	});
