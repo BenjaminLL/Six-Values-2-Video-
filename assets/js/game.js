@@ -30,15 +30,15 @@ var scenarios = [honestyVideos, trustVideos, respectVideos, responsibilityVideos
 var buttons = [honesty, trust, respect, responsibility, fairness, courage];
 
 
-var honestyText = ["You are asked to work together on a quiz but want to ask the instructor if this is permitted.", 
-					"After being granted an extension for a paper you are struggling with, you contact your instructor to receive help."];
-var trustText = ["You receive an “F” on a paper and think that your friend may have copied your work without you knowing, so you tell your instructor what happened."];
-var respectText = ["You have already completed half the assignment with your friends when you learn it is an individual assignment, so you start the assignment over on your own."];
-var fairnessText = ["A student is writing an exam and has access to the answer key, so you let the instructor know after class that the answers are available online."];
+var honestyText = ["Your friend asked you to work together on a quiz but want to ask the instructor and abide by the policies in the course outline.", 
+					"After being granted an extension for a paper you are struggling with, you decide to admit your struggles and contact your instructor to receive help."];
+var trustText = ["You receive an “F” on a paper and think that your friend may have copied your work without you knowing, and you want your instructor to know that you did completed the work on your own."];
+var respectText = ["You have already completed half the assignment with your friends when you learn it is an individual assignment, so you start the assignment over on your own to ensure it captures your thoughts alone."];
+var fairnessText = ["A student is writing an exam and has access to the answer key, so you let the instructor know after class that the answers are available online so that no one has an advantage on the exam."];
 var responsibilityText = ["After having lied on your resume, you find yourself unable to answer questions about a skill you claimed to have, and decide to let the interviewer know that you have no experience with that content.", 
-					"When your mother asks how classes are going, you decide to go see a counselor to get help due to your academic struggles at university."];
+					"You realize you should go see a counselor to take control of your academic career after your mother asks how classes are going."];
 var courageText = ["While writing an exam where electronics are not allowed, you see students looking at their phones, and decide to notify the exam invigilator.",
-				 "You have recently switched academic programs and have been afraid to tell your family, so you decide to seek help and visit an academic advisor."];
+				 "You have recently switched academic programs and have been afraid to tell your family, so you make the difficult decision to seek help and visit an academic advisor."];
 
 var scenariosText = [honestyText, trustText, respectText, responsibilityText, 
 					fairnessText, courageText];
@@ -58,8 +58,8 @@ var numLife = 3;
 video.hide();
 icon.hide();
 scenarioText.hide();
-backGround.hide();
-instructionPopup.hide();
+// backGround.hide();
+// instructionPopup.hide();
 
 // get random number
 function getRandom(max) {
