@@ -58,8 +58,8 @@ var numLife = 3;
 video.hide();
 icon.hide();
 scenarioText.hide();
-// backGround.hide();
-// instructionPopup.hide();
+backGround.hide();
+instructionPopup.hide();
 
 // get random number
 function getRandom(max) {
