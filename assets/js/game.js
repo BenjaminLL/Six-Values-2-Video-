@@ -1,5 +1,5 @@
 
-// assign each button to a variable 
+// get all the elements from the game
 var honesty = $("#honesty");
 var trust = $("#trust");
 var respect = $("#respect");
@@ -7,41 +7,131 @@ var responsibility = $("#responsibility");
 var fairness = $("#fairness");
 var courage = $("#courage");
 var scenario = $("#scenario"); // scenario context
+var timeText = $("#time");
 var timer = $("#timer");
+var lifeText = $("#lifeText");
 var life = $("#life");
 var start = $("#start");
 var video = $("video");
 var icon = $("i");
 var scenarioText = $("#scenarioText h6");
 var instruction = $("#instruction");
+var instructionTitle = $("#instructionTitle");
+var instructionMessage = $("#instruction_message");
 var backGround = $("#pop_background");
 var instructionPopup = $("#instruction_popup");
 
+var STOP, START, END_MESSAGE, TITLE, FAIL;
+var INSTRUCTION_MESSAGES = [];
+
+var buttons = [honesty, trust, respect, fairness, responsibility, courage];
 // declare scenarios
-var honestyVideos = ["assets/videos/1b-v3.mp4", "assets/videos/2b-v3.mp4"];
-var trustVideos = ["assets/videos/4b-v3.mp4"];
-var respectVideos = ["assets/videos/5b-v3.mp4"];
-var fairnessVideos = ["assets/videos/7b-v3.mp4"];
-var responsibilityVideos = ["assets/videos/9b-v3.mp4", "assets/videos/10b-v3.mp4"];
-var courageVideos = ["assets/videos/11b-v3.mp4", "assets/videos/12b-v3.mp4"];
+var honestyVideos = [];
+var trustVideos = [];
+var respectVideos = [];
+var fairnessVideos = [];
+var responsibilityVideos = [];
+var courageVideos = [];
 
-var scenarios = [honestyVideos, trustVideos, respectVideos, responsibilityVideos, 
-					fairnessVideos, courageVideos];
-var buttons = [honesty, trust, respect, responsibility, fairness, courage];
+var scenarios = [honestyVideos, trustVideos, respectVideos, fairnessVideos, 
+					responsibilityVideos, courageVideos];
+
+var honestyText = [];
+var trustText = [];
+var respectText = [];
+var fairnessText = [];
+var responsibilityText = [];
+var courageText = [];
+
+var scenariosText = [honestyText, trustText, respectText, fairnessText, 
+					responsibilityText, courageText];
 
 
-var honestyText = ["Your friend asked you to work together on a quiz but want to ask the instructor and abide by the policies in the course outline.", 
-					"After being granted an extension for a paper you are struggling with, you decide to admit your struggles and contact your instructor to receive help."];
-var trustText = ["You receive an “F” on a paper and think that your friend may have copied your work without you knowing, and you want your instructor to know that you did completed the work on your own."];
-var respectText = ["You have already completed half the assignment with your friends when you learn it is an individual assignment, so you start the assignment over on your own to ensure it captures your thoughts alone."];
-var fairnessText = ["A student is writing an exam and has access to the answer key, so you let the instructor know after class that the answers are available online so that no one has an advantage on the exam."];
-var responsibilityText = ["After having lied on your resume, you find yourself unable to answer questions about a skill you claimed to have, and decide to let the interviewer know that you have no experience with that content.", 
-					"You realize you should go see a counselor to take control of your academic career after your mother asks how classes are going."];
-var courageText = ["While writing an exam where electronics are not allowed, you see students looking at their phones, and decide to notify the exam invigilator.",
-				 "You have recently switched academic programs and have been afraid to tell your family, so you make the difficult decision to seek help and visit an academic advisor."];
 
-var scenariosText = [honestyText, trustText, respectText, responsibilityText, 
-					fairnessText, courageText];
+// load xml based one the specified language
+function parseXML(){  
+              
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } 
+
+            // get the lan attribute
+            var lan = document.getElementsByTagName('html')[0].getAttribute('lang');
+            
+            // load xml
+            if (lan == "en") {
+
+                console.log("English version picked");
+                xmlhttp.open("GET","assets/language/game2_en.xml",false);
+            } else if (lan == "fr") {
+
+                console.log("French version picked");
+                xmlhttp.open("GET","assets/language/game2_fr.xml",false);
+            } else if (lan == "zh") {
+
+                console.log("Chinese version picked");
+                xmlhttp.open("GET","assets/language/game2_zh.xml",false);
+            } else {
+                console.log("no language picked");
+                xmlhttp.open("GET","language/game1_en.xml",false);
+            }
+
+            xmlhttp.send();
+            xmlDoc = xmlhttp.responseXML;
+
+            // load content to each text field
+            timeText.text(xmlDoc.getElementsByTagName("time")[0].childNodes[0].nodeValue);
+            lifeText.text(xmlDoc.getElementsByTagName("life")[0].childNodes[0].nodeValue);
+            scenario.text(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
+
+            FAIL = xmlDoc.getElementsByTagName("fail")[0].childNodes[0].nodeValue;
+            TITLE = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+            END_MESSAGE = xmlDoc.getElementsByTagName("end_message")[0].childNodes[0].nodeValue;
+            STOP = xmlDoc.getElementsByTagName("stop")[0].childNodes[0].nodeValue;
+            START = xmlDoc.getElementsByTagName("start")[0].childNodes[0].nodeValue;
+            start.text(START);
+
+            instruction.text(xmlDoc.getElementsByTagName("instruction")[0].childNodes[0].nodeValue);
+            instructionTitle.text(xmlDoc.getElementsByTagName("instruction")[0].childNodes[0].nodeValue);
+
+            var INSTRUCTION_MESSAGE = xmlDoc.getElementsByTagName("instruction_message")[0];
+            INSTRUCTION_MESSAGES[0] = INSTRUCTION_MESSAGE.getElementsByTagName("first_sentence")[0].childNodes[0].nodeValue;
+            INSTRUCTION_MESSAGES[1] = INSTRUCTION_MESSAGE.getElementsByTagName("second_sentence")[0].childNodes[0].nodeValue;
+            instructionMessage.html(INSTRUCTION_MESSAGES[0] + "<br><br>" + INSTRUCTION_MESSAGES[1]);
+
+            var sixValues = ["honesty", "trust", "respect", "fairness", "responsibility", "courage"];
+            var buttonText = xmlDoc.getElementsByTagName("six_values")[0];
+            var blurbs = xmlDoc.getElementsByTagName("blurbs")[0];
+            var videoPaths = xmlDoc.getElementsByTagName("video_path")[0];
+            var index = 1;
+
+            for (var i = 0; i < 6; ++i) {
+
+            	buttons[i].text(buttonText.getElementsByTagName(sixValues[i])[0].childNodes[0].nodeValue);
+
+            	var tmpText = scenariosText[i];
+            	var tmpVideo = scenarios[i];
+            	var blurbOne = "b" + index;
+            	var blurbTwo = "b" + (index + 1);
+
+				tmpText.push(blurbs.getElementsByTagName(blurbOne)[0].childNodes[0].nodeValue);
+				tmpText.push(blurbs.getElementsByTagName(blurbTwo)[0].childNodes[0].nodeValue);
+
+				tmpVideo.push(videoPaths.getElementsByTagName(blurbOne)[0].childNodes[0].nodeValue);
+				tmpVideo.push(videoPaths.getElementsByTagName(blurbTwo)[0].childNodes[0].nodeValue);
+
+            	index += 2;
+            }
+ 
+
+}
+
+
+
 
 // Global Vars
 var scenarioIndex; // current scenario number 
@@ -54,6 +144,7 @@ var played = [];
 var stop = false;
 var started = false;
 var numLife = 3;
+
 
 video.hide();
 icon.hide();
@@ -78,7 +169,7 @@ function setScenario() {
 		videoIndex = getRandom(scenarios[scenarioIndex].length);
 		currVideo = scenarios[scenarioIndex][videoIndex];
 
-		if (played.indexOf(currVideo) == -1) {
+		if (played.indexOf(currVideo) == -1 && currVideo != "null") {
 			break;
 		}
 	}
@@ -165,9 +256,9 @@ function setListeners() {
 					video[0].pause();
 					video.hide();
 					icon.hide();
-					scenario.text("You Finished in: " + time + "s");
+					scenario.text(END_MESSAGE + time + "s");
 					scenario.show();
-					start.text("Start");
+					start.text(START);
 					scenarioText.text("");
 					scenarioText.hide();
 					instruction.show();
@@ -183,9 +274,9 @@ function setListeners() {
 					video[0].pause();
 					video.hide();
 					icon.hide();
-					scenario.text("Try Again!");
+					scenario.text(FAIL);
 					scenario.show();
-					start.text("Start");
+					start.text(START);
 					scenarioText.text("");
 					scenarioText.hide();
 					instruction.show();
@@ -198,8 +289,8 @@ function setListeners() {
 	start.click(function() {
 
 		if (started) {
-			start.text("Start");
-			scenario.text("Six Values 2");
+			start.text(START);
+			scenario.text(TITLE);
 			scenarioText.text("");
 			scenarioText.hide();
 			instruction.show();
@@ -209,7 +300,7 @@ function setListeners() {
 			icon.hide();
 			stop = true;
 		} else {
-			start.text("Stop");
+			start.text(STOP);
 			scenario.hide();
 			video.show();
 			instruction.hide();
@@ -220,7 +311,7 @@ function setListeners() {
 }
 
 
-
+parseXML();
 setListeners();
 
 

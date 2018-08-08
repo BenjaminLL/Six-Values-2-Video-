@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<game1_language>
+	
+	
+	<!-- button contents -->
+	<title>六个价值观 2</title>
+	<start>开始</start>
+	<stop>结束</stop>
+	<time>时间</time>
+	<life>剩余机会</life>
+	<instruction>游戏规则</instruction>
+
+	<!-- messages -->
+	<instruction_message>
+		<first_sentence>开始以后，屏幕会播放一个随机的视屏和文字介绍，请选择相对应的价值观。</first_sentence>
+		<second_sentence>一共有六轮和三次机会，请以最快速度完成所有选择。</second_sentence>
+	</instruction_message>
+	<end_message>用时： </end_message>
+	<fail>再来一次！</fail>
+
+	<!-- Six Values -->
+	<six_values>
+		<honesty>诚实</honesty>
+		<trust>信任</trust>
+		<respect>尊重</respect>
+		<fairness>公平</fairness>
+		<responsibility>责任</responsibility>
+		<courage>勇气</courage>
+	</six_values>
+
+	<!-- Video paths -->
+	<video_path>
+		<b1>assets/videos/English/1b-v3.mp4</b1>
+		<b2>assets/videos/English/2b-v3.mp4</b2>
+		<b3>null</b3> <!-- Please replace it with the path of 3b video -->
+		<b4>assets/videos/English/4b-v3.mp4</b4>
+		<b5>assets/videos/English/5b-v3.mp4</b5>
+		<b6>null</b6> <!-- Please replace it with the path of 6b video -->
+		<b7>assets/videos/English/7b-v3.mp4</b7>
+		<b8>null</b8> <!-- Please replace it with the path of 8b video -->
+		<b9>assets/videos/English/9b-v3.mp4</b9>
+		<b10>assets/videos/English/10b-v3.mp4</b10>
+		<b11>assets/videos/English/11b-v3.mp4</b11>
+		<b12>assets/videos/English/12b-v3.mp4</b12>
+	</video_path>
+
+	<!-- Video blurbs -->
+	<blurbs>
+		<b1>Your friend asked you to work together on a quiz but want to ask the instructor and abide by the policies in the course outline.</b1>
+		<b2>After being granted an extension for a paper you are struggling with, you decide to admit your struggles and contact your instructor to receive help.</b2>
+		<b3>You don’t want the entire class to be penalized due to a group member copying work from an old assignment, so you let the instructor know that old assignments have been circulated.</b3>
+		<b4>You receive an “F” on a paper and think that your friend may have copied your work without you knowing, and you want your instructor to know that you did completed the work on your own.</b4>
+		<b5>You have already completed half the assignment with your friends when you learn it is an individual assignment, so you start the assignment over on your own to ensure it captures your thoughts alone.</b5>
+		<b6>After having copied code from the internet, you are presented with the same problem on the final exam, and should have asked your TA for help initially so that you can prove to yourself that you know how to do the work.</b6> 
+		<b7>A student is writing an exam and has access to the answer key, so you let the instructor know after class that the answers are available online so that no one has an advantage on the exam.</b7>
+		<b8>You are trying to find solutions to a problem online, but realize that both accessing notes and uploading instructors’ notes is a breach of academic conduct and don’t want an advantage over your peers.</b8> 
+		<b9>After having lied on your resume, you find yourself unable to answer questions about a skill you claimed to have, and decide to let the interviewer know that you have no experience with that content.</b9>
+		<b10>You realize you should go see a counselor to take control of your academic career after your mother asks how classes are going.</b10>
+		<b11>While writing an exam where electronics are not allowed, you see students looking at their phones, and decide to notify the exam invigilator.</b11>
+		<b12>You have recently switched academic programs and have been afraid to tell your family, so you make the difficult decision to seek help and visit an academic advisor.</b12>
+	</blurbs>
+
+	
+</game1_language>
