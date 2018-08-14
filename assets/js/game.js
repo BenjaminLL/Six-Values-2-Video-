@@ -160,6 +160,10 @@ function getRandom(max) {
 //get random scenarios
 function setScenario() {
 
+	for (var i = 0; i < 6; ++i) {
+		buttons[i].css("color", "black");
+	}
+
 	video[0].pause();
 	icon.hide();
 
@@ -243,7 +247,7 @@ function setListeners() {
 
 	for (var i = 0; i < numVars; ++i) {
 
-		buttons[i].click(function() {
+		buttons[i].mouseup(function() {
 
 			if (!started) return;		
 
@@ -283,6 +287,21 @@ function setListeners() {
 				}
 				life.text(numLife);
 			}
+		})
+		.mousedown(function() {
+
+			if (!started) return;		
+
+			var buttonIndex = $(this).index();
+
+			if (buttonIndex == scenarioIndex) {
+
+				$(this).css("color", "white");
+			} else {
+				
+				$(this).css("color", "#db2202");
+			}
+
 		});
 	}
 

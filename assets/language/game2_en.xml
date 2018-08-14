@@ -7,7 +7,7 @@
 	<start>Start</start>
 	<stop>Stop</stop>
 	<time>Time</time>
-	<life>Life</life>
+	<life>Chances</life>
 	<instruction>Instructions</instruction>
 
 	<!-- messages -->
@@ -37,7 +37,7 @@
 		<b5>assets/videos/English/5b-v3.mp4</b5>
 		<b6>null</b6> <!-- Please replace it with the path of 6b video -->
 		<b7>assets/videos/English/7b-v3.mp4</b7>
-		<b8>null</b8> <!-- Please replace it with the path of 8b video -->
+		<b8>null</b8> <!-- Please replace it with the path of 8a video -->
 		<b9>assets/videos/English/9b-v3.mp4</b9>
 		<b10>assets/videos/English/10b-v3.mp4</b10>
 		<b11>assets/videos/English/11b-v3.mp4</b11>
