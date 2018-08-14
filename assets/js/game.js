@@ -302,6 +302,65 @@ function setListeners() {
 				$(this).css("color", "#db2202");
 			}
 
+		})
+		.on("touchstart", function(e) {
+
+			e.preventDefault();
+
+			if (!started) return;		
+
+			var buttonIndex = $(this).index();
+
+			if (buttonIndex == scenarioIndex) {
+
+				$(this).css("color", "white");
+			} else {
+				
+				$(this).css("color", "#db2202");
+			}
+		})
+		.on("touchend", function(e) {
+
+			e.preventDefault();
+
+			if (!started) return;		
+
+			var buttonIndex = $(this).index();
+
+			if (buttonIndex == scenarioIndex) {
+
+				if (totalPlay == numVars) {
+					stop = true;
+					video[0].pause();
+					video.hide();
+					icon.hide();
+					scenario.text(END_MESSAGE + time + "s");
+					scenario.show();
+					start.text(START);
+					scenarioText.text("");
+					scenarioText.hide();
+					instruction.show();
+				} else {
+					setScenario();
+				}
+			} else {
+				
+				--numLife;
+				console.log(numLife);
+				if (numLife == 0) {
+					stop = true;
+					video[0].pause();
+					video.hide();
+					icon.hide();
+					scenario.text(FAIL);
+					scenario.show();
+					start.text(START);
+					scenarioText.text("");
+					scenarioText.hide();
+					instruction.show();
+				}
+				life.text(numLife);
+			}
 		});
 	}
 
